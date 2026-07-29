@@ -229,7 +229,7 @@ frontend/src/
 | CRUD REST API | 미구현 |
 | Frontend CRUD UI | 미구현 |
 | CORS 또는 Vite proxy | 미설정 |
-
+> 작업순서 Entity → Repository → DTO → Service → Controller → (Frontend)
 ---
 
 ## 8. 네이밍 규칙
