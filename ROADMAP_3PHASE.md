@@ -88,7 +88,8 @@ orders (또는 purchases)  ← 3단계
 
 # 1단계 — 상품 등록 / 수정 / 삭제 UI 완성
 
-> **상세 설계서 (테이블·API·화면·플로우·WBS·테스트)**: [`docs/PHASE1_DESIGN.md`](./docs/PHASE1_DESIGN.md)
+> **상세 설계서**: [`docs/PHASE1_DESIGN.md`](./docs/PHASE1_DESIGN.md)  
+> **따라 하기 매뉴얼 (Work 0~7)**: [`docs/PHASE1_MANUAL.md`](./docs/PHASE1_MANUAL.md)
 
 ## 1-1. 목표 (이게 되면 “1단계 끝”)
 

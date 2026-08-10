@@ -38,7 +38,7 @@ export const getInsuranceProduct = async (id: number): Promise<InsuranceProductR
 export const createInsuranceProduct = async (
     data: InsuranceProductRequest
 ): Promise<InsuranceProductResponse> => {
-    const response = await api.post<InsuranceProductResponse>('api/insurance-products', data);
+    const response = await api.post<InsuranceProductResponse>('/api/insurance-products', data);
     return response.data;
 };
 

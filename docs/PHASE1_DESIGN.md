@@ -871,5 +871,6 @@ curl -s -o /dev/null -w "%{http_code}" -X DELETE http://localhost:8080/api/insur
 ---
 
 > **다음 행동**  
-> 이 문서의 **T1 → T2 → T3 → T4** 순으로 구현을 시작한다.  
+> **따라 하기 매뉴얼**은 [`PHASE1_MANUAL.md`](./PHASE1_MANUAL.md) (Work 0~7, 코드 예시 포함).  
+> 이 설계서의 **T1 → T2 → T3 → T4** 와 매뉴얼 Work 순서는 같다.  
 > 전체 로드맵은 `ROADMAP_3PHASE.md`, 복습용 가이드는 `CRUD_LEARNING_GUIDE.md` 를 참고한다.
