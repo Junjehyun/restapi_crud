@@ -66,6 +66,7 @@ function InsuranceProductCreate() {
         }
         if(!type.trim()) {
             setError('유형을 입력하세요.');
+            return;
         }
         // 빈 칸이거나, 숫자로 바꿨을 때 NaN(Not a Number) 이면 실패
         if (monthlyPremium === '' || Number.isNaN(Number(monthlyPremium))) {

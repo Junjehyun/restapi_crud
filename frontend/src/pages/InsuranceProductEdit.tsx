@@ -24,7 +24,7 @@ import {
 // 서버에 보낼 요청 몸통 타입 (등록과 같은 모양)
 import type { InsuranceProductRequest } from "../types/insuranceProduct.ts";
 
-function InsrunaceProductEdit() {
+function InsuranceProductEdit() {
     // URL예 : /products/3/edit -> id는 문자열 "3"
     const { id } = useParams();
     // navigate('/') 를 호출하면 목록 주소로 이동한다
@@ -101,7 +101,7 @@ function InsrunaceProductEdit() {
             setError('상품명, 보험사, 유형은 필수입니다!');
             return;
         }
-        if (monthlyPremium === '' || Number.isNaN(monthlyPremium)) {
+        if (monthlyPremium === '' || Number.isNaN(Number(monthlyPremium))) {
             setError('월 보험료를 숫자로 입력하세요');
             return;
         }
@@ -241,4 +241,4 @@ function InsrunaceProductEdit() {
     );
 }
 
-export default InsrunaceProductEdit;
+export default InsuranceProductEdit;

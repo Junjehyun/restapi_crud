@@ -51,7 +51,7 @@ function InsuranceProductList() {
     // 삭제 버튼 클릭 시 실행
     // id = 지울 상품 번호, productName = 확인창에 보여 줄 이름
     // ------------------------------------------------------------
-    const handleDelete = async (id: number, productName = string) => {
+    const handleDelete = async (id: number, productName: string) => {
         // window.confirm = 브라우저 기본 "확인/취소" 창
         // 확인 -> true , 취소 -> false
         // 백틱 `...${변수}...` = 문자열 안에 변수 끼워 넣기 (템플릿 리터럴)
