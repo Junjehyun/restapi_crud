@@ -188,18 +188,6 @@ function InsuranceProductCreate() {
 
                 <div style={{ marginBottom: 12 }}>
                     <label>
-                        설명 *{' '}
-                        <textarea 
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            rows={3}
-                            style={{ width: '100%' }}
-                        />
-                    </label>
-                </div>
-
-                <div style={{ marginBottom: 12 }}>
-                    <label>
                         상태 *{' '}
                         <select value={status} onChange={(e) => setStatus(e.target.value)}>
                             <option value="판매중">판매중</option>
@@ -219,7 +207,8 @@ function InsuranceProductCreate() {
                 </button>
             </form>
             {/*
-                4-2. 목록에 “상품 등록” 버튼 넣기부터 시작하기.
+                4-2. 목록에 “상품 등록” 버튼 넣기부터 시작하기. InsuranceProductList에!
+                PHASE1_MANUAL참조
              */}
         </div>
     );
