@@ -85,7 +85,8 @@ function InsuranceProductList() {
             <h1>보험 상품 목록</h1>
             {/* to="/products/new" = App.tsx 에 등록한 등록 페이지 주소로 이동 */}
             <p>
-                <Link to="/products/new">상품 등록</Link>
+                <Link to="/products/new" style={{ marginRight: 12 }}>상품 등록</Link>
+                <Link to="/customers">고객 관리</Link>
             </p>
             {products.length === 0 ? (
                 <p>등록된 상품이 없습니다</p>

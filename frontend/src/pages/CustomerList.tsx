@@ -82,7 +82,61 @@ function CustomerList() {
       <h1>고객 목록</h1>
       <p>
         {/* SPA 이동: 전체 새로고침 없이 라우터만 바꿈 */}
+        <Link to="/customers/new" style={{ marginRight: 12 }}>
+          고객등록
+        </Link>
+        <Link to="/">상품 목록</Link>
       </p>
+
+      {customers.length === 0 ? (
+          <p>등록된 고객이 없습니다.</p>
+        ) : (
+          <table
+            border={1}
+            cellPadding={8}
+            style={{ borderCollapse: 'collapse', width: '100%'}}
+          >
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>연락처</th>
+                <th>생년월일</th>
+                <th>상태</th>
+                <th>관리</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/*
+                map = 배열 각 요소를 <tr> 로 변환
+                key={customer.id} = React 가 행을 구분하는 고유값 (필수에 가깝)
+              */}
+              {customers.map((customer) => (
+                <tr key={customer.id}>
+                  <td>{customer.id}</td>
+                  <td>{customer.name}</td>
+                  <td>{customer.email}</td>
+                  <td>{customer.phone}</td>
+                  {/* null 이면 '-' 표시. (A ?? B) = A 가 null/undefined 면 B */}
+                  <td>{customer.birthDate ?? '-'}</td>
+                  <td>{customer.status}</td>
+                  <td>
+                    <Link 
+                      to={`/customers/${customer.id}/edit`} 
+                      style={{ marginRight: 8 }}
+                    >
+                      수정
+                    </Link>
+                    <button type="button" onClick={() => handleDelete(customer.id, customer.name)}>
+                      삭제
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
     </div>
   );
 }
