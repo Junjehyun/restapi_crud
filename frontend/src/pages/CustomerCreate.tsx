@@ -74,12 +74,92 @@ function CustomerCreate() {
         <Link to="/customers">고객 목록</Link>
       </p>
       {/* error 가 있을 때만 빨간 박스 */}
-      
+      {error && (
+        <div style={{ color:'red', marginBottom: 12}}>{error}</div>
+      )}
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: 12 }}>
+          <label>
+            이름 *{' '}
+            {/*
+              제어 컴포넌트:
+              value = state, onChange = state 갱신
+              → 입력칸에 보이는 글자 = React 가 알고 있는 값
+            */}
+            <input 
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              style={{ width: '100%' }} 
+            />
+          </label>
+        </div>
+
+        <div style={{ marginBottom: 12 }}>
+          <label>
+            이메일 *{' '}
+            <input 
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{ width: '100%' }} 
+            />
+          </label>
+        </div>
+
+        <div style={{ marginBottom: 12 }}>
+          <label>
+            연락처 *{' '}
+            <input 
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="010-1234-5678"
+              style={{ width: '100' }} 
+            />
+          </label>
+        </div>
+
+        <div style={{ marginBottom: 12 }}>
+            <label>
+              생년월일{' '}
+              <input
+                type="date"
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
+              />
+            </label>
+        </div>
+        
+        <div style={{ marginBottom: 12 }}>
+          <label>
+            주소{' '}
+            <input
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              style={{ width: '100%' }}
+            />
+          </label>
+        </div>
+
+        <div style={{ marginBottom: 12 }}>
+          <label>
+            상태{' '}
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            >
+              <option value="활성">활성</option>
+              <option value="비활성">비활성</option>
+            </select>
+          </label>
+        </div>
+        
+        <button type="submit" disabled={loading}>
+          {loading ? '등록 중..' : '등록하기' }
+        </button>
+
+      </form>
     </div>
   );
-
-
-
 }
 
 export default CustomerCreate;
