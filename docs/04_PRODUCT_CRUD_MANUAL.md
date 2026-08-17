@@ -6,7 +6,8 @@
 | 대상 | 로드맵 **1단계**만 |
 | 전제 | 백엔드 상품 CRUD API는 **이미 있음**. 목록 화면(Read)도 **이미 있음** |
 | 목표 | 브라우저만으로 **등록 / 수정 / 삭제**까지 끝내기 |
-| 관련 | 설계서 `docs/PHASE1_DESIGN.md` · 로드맵 `ROADMAP_3PHASE.md` |
+| 상태 | **끝 · 참고용.** 지금 본문은 `06_CONSULTANT_CRUD_MISSION.md` |
+| 관련 | `00_README.md` · `02_ROADMAP.md` · 다음 참고 `05_CUSTOMER_CRUD_MANUAL.md` |
 
 ---
 
@@ -1238,9 +1239,7 @@ Network:
 
 위 7-1, 7-2가 모두 되면:
 
-> **1단계 완료. 다음은 `ROADMAP_3PHASE.md` 2단계(인증).**
-
-설계서 기준 DoD 와 동일하면 `docs/PHASE1_DESIGN.md` 15장 체크에도 표시해 두면 좋다.
+> **상품 CRUD 완료.** 학습 순서는 `00_README.md`. 다음은 이미 끝난 고객(`05`) 다음의 **설계사(`06`)**.
 
 ---
 

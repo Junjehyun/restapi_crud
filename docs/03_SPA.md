@@ -143,7 +143,7 @@ createRoot(document.getElementById('root')!).render(
 | 이 프로젝트 위치 | (없음) | `frontend/` |
 | 백엔드 역할 | 뷰까지 담당 | `src/` 의 REST API |
 
-`docs/PROJECT.md` 에 이미 같은 말이 있습니다.
+`01_PROJECT.md` 에 이미 같은 말이 있습니다.
 
 > Laravel은 종종 한 앱 안에서 라우트 → 뷰까지 처리한다.  
 > 여기서는 **프론트가 UI**, **백엔드가 API만** 담당한다.
@@ -233,10 +233,10 @@ frontend/
 **페이지 = `pages/` 안의 컴포넌트 하나.**  
 서버가 내려주는 `.html` 파일이 페이지가 아닙니다.
 
-### 5.3 아직 없는 것
+### 5.3 지금은
 
-설계 문서(`CUSTOMER_DESIGN.md`)에는 나중에 고객 화면(`/customers/...`)을 같은 방식으로 넣을 계획이 있습니다.  
-**지금 `App.tsx` 에 등록된 SPA 페이지는 보험상품 3개뿐입니다.**
+`App.tsx` 에 상품(`/`, `/products/...`)과 고객(`/customers/...`) 페이지가 이미 있다.  
+설계사(`/consultants/...`)는 **`06_CONSULTANT_CRUD_MISSION.md`** 에서 네가 붙인다.
 
 ---
 
@@ -469,10 +469,10 @@ App.tsx             안내데스크 (주소 → 방)
 
 | 문서 | 언제 |
 |------|------|
-| `docs/PROJECT.md` | 왜 React SPA + Spring API 로 나눴는지 |
-| `docs/PHASE1_DESIGN.md` | 화면과 API가 어떻게 짝을 이루는지 |
-| `docs/PHASE1_MANUAL.md` | 등록·수정·삭제 UI를 어떻게 만들었는지 |
-| `docs/CRUD_LEARNING_GUIDE.md` | CRUD 전체 흐름 |
+| `00_README.md` | 지금 무엇을 여는지 |
+| `01_PROJECT.md` | 왜 React SPA + Spring API 로 나눴는지 |
+| `04_PRODUCT_CRUD_MANUAL.md` | 상품 화면 CRUD (끝 · 참고) |
+| `06_CONSULTANT_CRUD_MISSION.md` | 지금 하는 설계사 CRUD |
 
 코드를 볼 때는 이 순서가 편합니다.
 

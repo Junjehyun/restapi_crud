@@ -5,7 +5,8 @@
 |------|------|
 | 대상 | 보험상품 CRUD를 **이미 한 번** 해본 사람 |
 | 목표 | **고객** 도메인으로 Entity부터 화면까지 같은 패턴 재연습 |
-| 관련 | 설계서 `docs/CUSTOMER_DESIGN.md` · 상품 매뉴얼 `docs/PHASE1_MANUAL.md` |
+| 상태 | **끝 · 참고용.** 지금 본문은 `06_CONSULTANT_CRUD_MISSION.md` |
+| 관련 | `00_README.md` · 상품 참고 `04_PRODUCT_CRUD_MANUAL.md` |
 | 원칙 | **위에서 아래 순서**. 각 Work **확인** 통과 후 다음으로 |
 
 ---

@@ -1,336 +1,89 @@
-# restapi_crud 3단계 로드맵 가이드
+# 로드맵
 
-> **대상**: Laravel은 써 봤고, React + Spring Boot REST는 처음인 사람  
-> **프로젝트**: 보험상품 관리 연습용 CRUD (`restapi_crud`)  
-> **문서 목적**: 1~3단계를 **왜 / 무엇을 / 어떤 순서로 / 어떻게** 할지 초보자 기준으로 정리  
-> **관련 문서**: `PROJECT.md`(개요), `CRUD_LEARNING_GUIDE.md`(현재 코드 검토·CRUD 학습), **`docs/PHASE1_DESIGN.md`(1단계 상세 설계서)**
+| 항목 | 내용 |
+|------|------|
+| 역할 | 큰 단계만. **지금 할 일**은 `00_README.md` |
+| 지금 | 설계사 CRUD — `06_CONSULTANT_CRUD_MISSION.md` |
+| 다음 | REST 계약 — `07_REST_CONTRACT_MISSION.md` |
+| 나중 | 이 문서의 **2단계(인증) · 3단계(주문)** |
+
+1단계(상품·고객 CRUD) 따라 하기 본문은 지웠다. 끝난 작업은 `04` · `05` 를 본다.
 
 ---
 
-## 0. 전체 그림 (한 장으로 보기)
+## 0. 전체 그림
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  1단계 (지금)                                                │
-│  상품 등록 / 수정 / 삭제 UI 완성                              │
-│  → “프론트엔드에서 CRUD를 끝까지 손으로 해보기”                 │
+│  1단계 (끝)  상품 + 고객 CRUD                                 │
+│  문서: 04_PRODUCT_CRUD_MANUAL.md · 05_CUSTOMER_CRUD_MANUAL.md │
 └──────────────────────────┬──────────────────────────────────┘
-                           │ 기반이 단단해진 뒤
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  2단계                                                       │
-│  User 테이블 + 회원가입 / 로그인 (인증)                        │
-│  → “로그인한 사람만 상품을 관리할 수 있게”                     │
+│  1.25 (지금)  설계사 CRUD — 매뉴얼 없이 네가 씀                │
+│  문서: 06_CONSULTANT_CRUD_MISSION.md                         │
 └──────────────────────────┬──────────────────────────────────┘
-                           │ 누가 요청했는지 알 수 있게 된 뒤
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  3단계                                                       │
-│  구매(주문) 기능                                              │
-│  → “누가 어떤 상품을 샀는지” 기록                             │
+│  1.5  REST 계약  검증 400 / 404 / 409 / 검색                  │
+│  문서: 07_REST_CONTRACT_MISSION.md                           │
+└──────────────────────────┬──────────────────────────────────┘
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  2단계  User + 로그인 (인증)                                  │
+│  개요: 이 문서 아래 "2단계"                                   │
+└──────────────────────────┬──────────────────────────────────┘
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  3단계  주문 (누가 무엇을 샀나)                                │
+│  개요: 이 문서 아래 "3단계"                                   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-| 단계 | 한 줄 목표 | 새로 배우는 핵심 |
-|------|------------|------------------|
-| **1단계** | 브라우저만으로 상품 C/R/U/D | React 폼, 라우팅, 목록 갱신 |
-| **2단계** | 로그인 사용자만 관리 | 비밀번호 해시, 세션/JWT, 보호 API |
-| **3단계** | 주문(구매) 기록 | 테이블 관계(FK), 트랜잭션 감각 |
+| 단계 | 한 줄 | 문서 |
+|------|--------|------|
+| 1 | 상품·고객 C/R/U/D | `04` `05` (끝) |
+| 1.25 | 설계사를 빈 파일에서 | `06` **지금** |
+| 1.5 | 실패·검색까지 계약 | `07` |
+| 2 | 로그인 사용자만 관리 | 이 문서 (아직 미션북 없음) |
+| 3 | 주문 기록 | 이 문서 (아직 미션북 없음) |
 
 ### 왜 이 순서인가?
 
 | 순서 | 이유 |
 |------|------|
-| 1 → 2 | 인증을 먼저 붙이면 “상품 CRUD 버그인지, 로그인 버그인지” 구분이 어려움. **화면·API 흐름을 먼저 익힌다.** |
-| 2 → 3 | 주문은 “**누가** 샀는지”가 필요함. User 없이 주문을 만들면 나중에 전부 뜯어고치게 됨. |
-| 3을 1 직후에 안 하는 이유 | 관계형 데이터(User–Order–Product)는 인증·유저 개념이 잡힌 뒤가 훨씬 쉽다. |
+| 1 → 1.25 | 두 번은 따라 쓰기. 세 번째는 빈 파일. |
+| 1.25 → 1.5 | 패턴이 손에서 나온 뒤 검증·404·검색. |
+| 1.5 → 2 | 400/404를 나눈 뒤에 401/403을 섞는다. |
+| 2 → 3 | 주문은 “누가”가 필요해서 인증 다음. |
 
-### 절대 한 번에 하지 말 것
+### 섞지 말 것
 
-- 1단계에서 로그인까지 같이 만들기  
-- 2단계에서 결제(카드/PG)까지 붙이기  
-- 3단계에서 배송·환불·정산까지 확장  
+- 설계사 CRUD에 검증·검색·로그인
+- 07 또는 인증을 건너뛰기
+- 2단계에서 결제, 3단계에서 배송·환불
 
-**한 단계 = 한 가지 큰 능력.**  
-끝나기 전에 다음 단계 코드를 섞지 않는 것이 초보에게 가장 중요하다.
+**한 단계 = 한 가지 큰 능력.**
 
 ---
 
-## 1. 지금 프로젝트 상태 (출발점)
-
-### 이미 있는 것
+## 1. 지금 상태
 
 | 영역 | 상태 |
 |------|------|
-| 백엔드 Entity / Repository / DTO / Service / Controller | 상품 CRUD API 완료 |
-| CORS | 프론트(5173) 허용 |
-| 프론트 타입 + API 함수 | 준비됨 (등록 path `/` 수정 권장) |
-| 프론트 화면 | **목록 조회만** 완료 |
+| 상품 CRUD (백+화면) | 끝 |
+| 고객 CRUD (백+화면) | 끝 |
+| 설계사 CRUD | **하는 중** (`06`) |
+| 서버 검증 / 404 JSON / 검색 | 아직 (`07`) |
+| 로그인 | 아직 (이 문서 2단계) |
+| 주문 | 아직 (이 문서 3단계) |
 
-### 1단계에서 채울 것
-
-- 등록 UI, 수정 UI, 삭제 UI  
-- (권장) 페이지 라우팅  
-- 브라우저만으로 CRUD 확인  
-
-### 2·3단계에서 새로 생길 것 (미리 개념만)
+나중에 생길 테이블 (지금은 만들지 않음):
 
 ```
-users          ← 2단계
-insurance_products  ← 이미 있음 (1단계 계속 사용)
-orders (또는 purchases)  ← 3단계
-  - user_id
-  - product_id
-  - 구매일시, 상태 등
+users           ← 2단계
+orders          ← 3단계  (user_id, product_id)
 ```
-
----
-
-# 1단계 — 상품 등록 / 수정 / 삭제 UI 완성
-
-> **상세 설계서**: [`docs/PHASE1_DESIGN.md`](./docs/PHASE1_DESIGN.md)  
-> **따라 하기 매뉴얼 (Work 0~7)**: [`docs/PHASE1_MANUAL.md`](./docs/PHASE1_MANUAL.md)
-
-## 1-1. 목표 (이게 되면 “1단계 끝”)
-
-브라우저(`http://localhost:5173`)에서 **Postman 없이** 다음이 된다.
-
-1. 상품 **목록** 보기  
-2. 상품 **등록** 후 목록에 나타남  
-3. 상품 **수정** 후 값이 바뀜  
-4. 상품 **삭제** 후 목록에서 사라짐  
-5. 로딩 중 / 실패 시 사용자에게 안내  
-
-백엔드 API는 **이미 있다.**  
-이 단계의 본질은 **프론트가 API를 호출하고 화면 상태를 다루는 연습**이다.
-
-## 1-2. 백엔드에서 손댈 일 (최소)
-
-| 작업 | 필수? | 설명 |
-|------|-------|------|
-| API 5종 동작 확인 | ✅ | curl/Postman으로 C/R/U/D 확인 |
-| `createInsuranceProduct` 경로 `/` 수정 | ✅ | 프론트 버그 예방 |
-| 입력 검증 (`@NotBlank` 등) | 권장 | 없어도 UI는 만들 수 있음 |
-| 없는 id → 404 | 권장 | 없어도 UI는 만들 수 있음 |
-| User / 로그인 코드 | ❌ | **2단계** |
-
-> 1단계 원칙: **백엔드를 크게 바꾸지 말고, 있는 API에 화면만 붙인다.**
-
-### 작업 전 API 점검 (5분)
-
-```bash
-# 목록
-curl http://localhost:8080/api/insurance-products
-
-# 등록
-curl -X POST http://localhost:8080/api/insurance-products \
-  -H "Content-Type: application/json" \
-  -d '{"name":"테스트종신","company":"삼성생명","type":"종신","monthlyPremium":50000}'
-```
-
-목록·등록이 되면 프론트 작업을 시작한다.
-
-### 프론트 즉시 수정
-
-`frontend/src/api/insuranceProductApi.ts`
-
-```ts
-// 잘못된 예
-api.post('api/insurance-products', data)
-
-// 올바른 예 (다른 함수와 동일하게 앞에 /)
-api.post('/api/insurance-products', data)
-```
-
-## 1-3. 권장 화면 구성
-
-초보는 **한 페이지에 모든 걸 몰아넣지 말고**, 역할별로 나누는 편이 쉽다.  
-`react-router-dom` 은 이미 설치되어 있다.
-
-| 경로 | 페이지 | 하는 일 |
-|------|--------|---------|
-| `/` | 목록 | 표 + “등록” 링크 + 각 행의 수정/삭제 |
-| `/products/new` | 등록 폼 | 입력 → POST → 목록으로 이동 |
-| `/products/:id/edit` | 수정 폼 | GET으로 채움 → PUT → 목록으로 이동 |
-
-```
-frontend/src/
-├── api/
-│   ├── axios.ts
-│   └── insuranceProductApi.ts      ← 이미 있음 (path 수정)
-├── types/
-│   └── insuranceProduct.ts         ← 이미 있음
-├── pages/
-│   ├── InsuranceProductList.tsx    ← 이미 있음 (버튼 추가)
-│   ├── InsuranceProductCreate.tsx  ← 새로 만들기
-│   └── InsuranceProductEdit.tsx    ← 새로 만들기
-├── App.tsx                         ← Router 연결
-└── main.tsx
-```
-
-> 등록/수정을 **한 폼 컴포넌트**로 합쳐도 된다.  
-> 처음이면 **Create / Edit 파일 둘**로 나누는 쪽이 디버깅이 쉽다. 익숙해지면 합친다.
-
-## 1-4. 작업 순서 (반드시 이 순서로)
-
-초보가 막히는 가장 큰 이유는 **등록·수정·삭제를 하루에 전부** 하려는 것이다.  
-**기능 하나씩** 끝낸 뒤에 다음으로 간다.
-
-```
-① 등록 path 수정 + API curl 확인
-      ↓
-② 라우터 뼈대 (빈 페이지라도 / , /products/new 연결)
-      ↓
-③ Create UI (등록만)
-      ↓
-④ Delete UI (목록에 삭제 버튼만)
-      ↓
-⑤ Edit UI (수정)
-      ↓
-⑥ 다듬기 (에러 메시지, 빈 값 체크, UX)
-```
-
-### ① 등록 path + API 확인
-
-- 위 표의 path 수정  
-- curl로 POST/GET/PUT/DELETE 한 번씩  
-
-**완료 기준**: 터미널만으로 CRUD가 된다.
-
-### ② 라우터 뼈대
-
-`App.tsx` 예시 개념:
-
-```tsx
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import InsuranceProductList from './pages/InsuranceProductList';
-import InsuranceProductCreate from './pages/InsuranceProductCreate';
-import InsuranceProductEdit from './pages/InsuranceProductEdit';
-
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<InsuranceProductList />} />
-        <Route path="/products/new" element={<InsuranceProductCreate />} />
-        <Route path="/products/:id/edit" element={<InsuranceProductEdit />} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
-```
-
-**완료 기준**: 주소창에 경로를 치면 각 페이지(일단 제목만 있어도 됨)가 열린다.
-
-### ③ Create UI — 가장 중요한 연습
-
-**화면 흐름**
-
-```
-[등록 페이지]
-  입력 폼 (name, company, type, monthlyPremium, description, status)
-      ↓ 제출
-  createInsuranceProduct(data)
-      ↓ 성공
-  목록 페이지로 이동 (navigate('/'))
-      ↓ 실패
-  빨간 에러 문구 표시
-```
-
-**state 패턴 (목록에서 쓰던 것과 동일)**
-
-| state | 용도 |
-|-------|------|
-| form 필드들 | 입력값 |
-| `loading` | 제출 중 버튼 비활성 |
-| `error` | 실패 메시지 |
-
-**초보 체크리스트**
-
-- [ ] controlled input (`value` + `onChange`)  
-- [ ] `type="number"` 인 보험료는 서버로 보낼 때 **number** 로 보내기  
-- [ ] 제출 중 더블클릭 방지 (`loading` 이면 button disabled)  
-- [ ] 성공 후 `navigate('/')`  
-- [ ] Network 탭에서 POST `/api/insurance-products` 가 **201** 인지 확인  
-
-**완료 기준**: 화면에서 상품을 추가하면 목록에 보인다.
-
-### ④ Delete UI
-
-**화면 흐름**
-
-```
-[목록 행] 삭제 버튼
-      ↓
-  confirm("정말 삭제할까요?")
-      ↓ 예
-  deleteInsuranceProduct(id)
-      ↓ 성공
-  목록 다시 불러오기 (getInsuranceProducts)
-```
-
-**팁**
-
-- 실수로 지우지 않게 `window.confirm` 정도는 넣기  
-- 삭제 후 **목록 state를 다시 fetch** 하는 방식이 가장 단순하고 안전함  
-
-**완료 기준**: 화면에서 지우면 표에서 사라진다.
-
-### ⑤ Edit UI
-
-**화면 흐름**
-
-```
-[목록] 수정 링크 → /products/1/edit
-      ↓
-  useParams 로 id 꺼내기
-      ↓
-  getInsuranceProduct(id) 로 폼 채우기
-      ↓ 제출
-  updateInsuranceProduct(id, data)
-      ↓ 성공
-  navigate('/')
-```
-
-**초보가 자주 하는 실수**
-
-| 실수 | 해결 |
-|------|------|
-| 폼이 비어 있음 | 마운트 시 GET을 안 함 / `useEffect` 누락 |
-| id가 undefined | `useParams` 타입, Route path `:id` 확인 |
-| 수정해도 목록이 예전 값 | 목록으로 간 뒤 목록이 다시 fetch 하는지 확인 |
-
-**완료 기준**: 화면에서 고친 내용이 목록에 반영된다.
-
-### ⑥ 다듬기 (1단계 마무리)
-
-| 항목 | 설명 |
-|------|------|
-| 프론트 간단 검증 | 이름 비어 있으면 제출 막기 |
-| 에러 표시 | API 실패 시 `error` state로 문구 |
-| 목록 헤더 | “상품 등록” 버튼 → `/products/new` |
-| (선택) 서버 검증 | Request DTO에 validation 어노테이션 |
-
-## 1-5. 1단계 완료 체크리스트
-
-- [ ] curl/Postman으로 API CRUD 확인  
-- [ ] 등록 API path `/` 수정  
-- [ ] 라우팅: 목록 / 등록 / 수정  
-- [ ] 등록 → 목록 반영  
-- [ ] 수정 → 목록 반영  
-- [ ] 삭제 → 목록 반영  
-- [ ] loading / error 처리  
-- [ ] (권장) 빈 입력 방지  
-
-**여기까지 되면 1단계 졸업.**  
-그 전에는 2단계(로그인) 코드를 넣지 말 것.
-
-## 1-6. 1단계에서 일부러 안 하는 것
-
-- 로그인 / 회원가입  
-- “내 상품만 보기”  
-- 예쁜 CSS 프레임워크 도입 (동작 우선, 인라인 스타일도 OK)  
-- 페이지네이션, 검색 (있으면 좋지만 **필수는 아님**)
 
 ---
 
@@ -844,19 +597,18 @@ React ──인증──▶ Auth
 
 ---
 
-# 다음에 열어볼 파일 (현재 프로젝트)
+# 다음에 열어볼 파일
+
+지금 학습 본문: **`06_CONSULTANT_CRUD_MISSION.md`**
 
 | 목적 | 경로 |
 |------|------|
-| 상품 Entity | `src/main/java/.../entity/InsuranceProduct.java` |
-| 상품 API | `src/main/java/.../controller/InsuranceProductController.java` |
-| 상품 서비스 | `src/main/java/.../service/InsuranceProductService.java` |
-| FE API | `frontend/src/api/insuranceProductApi.ts` |
-| FE 목록 | `frontend/src/pages/InsuranceProductList.tsx` |
-| CORS | `src/main/java/.../config/WebConfig.java` |
-| 1단계 상세 학습 | `CRUD_LEARNING_GUIDE.md` |
+| 목차 | `docs/00_README.md` |
+| 상품 참고 | `04_PRODUCT_CRUD_MANUAL.md` · `entity/InsuranceProduct.java` |
+| 고객 참고 | `05_CUSTOMER_CRUD_MANUAL.md` · `entity/Customer.java` |
+| CORS | `config/WebConfig.java` |
 
-2·3단계에서 새로 생길 위치는 기존 패키지 규칙을 그대로 따르면 된다.
+2·3단계에서 새로 생길 위치는 기존 패키지 규칙을 그대로 따른다.
 
 ```
 entity/User.java, entity/Order.java
@@ -875,13 +627,13 @@ frontend/src/api/authApi.ts, orderApi.ts
 
 | 단계 | 한 문장 |
 |------|---------|
-| **1단계** | 이미 있는 상품 API에 **화면을 붙여** CRUD를 손으로 끝낸다. |
-| **2단계** | **User와 로그인**으로 “누구인지”를 알게 하고, 관리 API에 자물쇠를 단다. |
-| **3단계** | **Order**로 User와 Product를 이어 “누가 무엇을 샀는지”를 기록한다. |
+| **1단계** | 상품·고객 CRUD를 손으로 끝냈다. |
+| **1.25** | 설계사를 빈 파일에서 한 번 더 그린다. **지금.** |
+| **1.5** | 실패·검색까지 API 계약으로 만든다. |
+| **2단계** | User와 로그인으로 “누구인지”를 알게 한다. |
+| **3단계** | Order로 “누가 무엇을 샀는지”를 기록한다. |
 
-지금 할 일만 다시 고정하면:
+지금 할 일:
 
-> **1단계만 본다. 등록 → 삭제 → 수정 UI 순으로, API는 먼저 검증하고 화면은 한 기능씩.**  
-> 1단계 체크리스트가 전부 체크되기 전에는 2단계 코드를 작성하지 않는다.
-
-이 문서가 전체 지도이고, 세부 CRUD 복습은 `CRUD_LEARNING_GUIDE.md` 를 함께 보면 된다.
+> **`06_CONSULTANT_CRUD_MISSION.md` 만 본다.**  
+> 설계사 체크리스트가 끝나기 전에 07·로그인 코드를 작성하지 않는다.

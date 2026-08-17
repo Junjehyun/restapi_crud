@@ -8,6 +8,8 @@
 
 이다.
 
+문서의 **읽는 순서 · 지금 할 일** 은 `docs/00_README.md` 를 본다.
+
 보험상품관리 CRUD는 그 목적을 위한 **연습 소재**다.  
 도메인·테이블 설계는 아직 확정하지 않았으며, 나중에 구성한다.
 
@@ -87,7 +89,7 @@ restapi_crud/
 ├── gradlew / gradlew.bat
 ├── gradle/wrapper/
 ├── HELP.md
-├── PROJECT.md                   # 본 문서
+├── docs/00_README.md            # 학습 문서 목차
 │
 ├── src/                         # ===== Backend (Spring Boot) =====
 │   ├── main/

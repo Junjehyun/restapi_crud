@@ -209,7 +209,7 @@ function InsuranceProductCreate() {
             </form>
             {/*
                 4-2. 목록에 “상품 등록” 버튼 넣기부터 시작하기. InsuranceProductList에!
-                PHASE1_MANUAL참조
+                04_PRODUCT_CRUD_MANUAL 참고
              */}
         </div>
     );
