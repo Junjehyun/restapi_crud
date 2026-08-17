@@ -36,6 +36,7 @@ export interface CustomerResponse {
     email: string;
     phone: string;
     birthDate: string | null; // 서버가 null 줄 수 있음.
+    address: string | null; 
     status: string;
     createdAt: string; // LocalDateTime -> JSON문자열
     updatedAt: string;
