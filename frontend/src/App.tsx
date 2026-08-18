@@ -9,6 +9,10 @@ import InsuranceProductEdit from './pages/InsuranceProductEdit.tsx';
 import CustomerList from './pages/CustomerList.tsx';
 import CustomerCreate from './pages/CustomerCreate.tsx';
 import CustomerEdit from './pages/CustomerEdit.tsx';
+// consultants
+import ConsultantList from './pages/ConsultantList.tsx';
+import ConsultantCreate from './pages/ConsultantCreate.tsx';
+import ConsultantEdit from './pages/ConsultantEdit.tsx';
 
 function App() {
   return (
@@ -39,6 +43,15 @@ function App() {
         <Route path="/customers/new" element={<CustomerCreate />} />
         {/* 수정 — :id 자리 표시자 */}
         <Route path="/customers/:id/edit" element={<CustomerEdit />} />
+
+        {/* 설계사 */}
+        {/* 목록 */}
+        <Route path="/consultants" element={<ConsultantList />} />
+        {/* 등록 */}
+        <Route path="/consultants/new" element={<ConsultantCreate />} />
+        {/* 수정 */}
+        <Route path="/consultants/:id/edit" element={<ConsultantEdit/>}/>
+
 
       </Routes>
     </BrowserRouter>

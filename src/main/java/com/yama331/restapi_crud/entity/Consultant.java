@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 @lombok.Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder // Consultant.builder().name("...").build() 형태로 생성 가능
 public class Consultant {
 
     @Id
