@@ -109,6 +109,7 @@ public class ConsultantService {
         consultant.setEmail(request.getEmail());
         consultant.setEmployeeCode(request.getEmployeeCode());
         consultant.setPhone(request.getPhone());
+        consultant.setHireDate(request.getHireDate());
         // status는 요청이 있을 때만 변경 (null이면 기존 유지)
         if(request.getStatus() != null) {
             consultant.setStatus(request.getStatus());

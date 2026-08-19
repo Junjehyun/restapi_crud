@@ -118,6 +118,7 @@ function ConsultantList() {
 
                             <tr key={consultant.id}>
                                 <td>{consultant.id}</td>
+                                <td>{consultant.name}</td>
                                 <td>{consultant.email}</td>
                                 <td>{consultant.phone}</td>
                                 <td>{consultant.hireDate ?? '-'}</td>
