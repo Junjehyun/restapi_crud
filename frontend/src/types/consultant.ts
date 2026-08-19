@@ -20,15 +20,10 @@
 export interface ConsultantRequest {
     
     name: string;
-
     employeeCode: string;
-
     phone: string;
-
     email?: string;
-
     hireDate?: string;
-
     status: string;
 
 }

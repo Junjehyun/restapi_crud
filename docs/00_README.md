@@ -3,9 +3,9 @@
 이 폴더를 열면 **이 파일만 먼저** 보면 된다.  
 파일 이름 앞 숫자가 읽는 순서다.
 
-| 지금 | 다음 |
-|------|------|
-| **`06_CONSULTANT_CRUD_MISSION.md`** (설계사 CRUD) | `07_REST_CONTRACT_MISSION.md` (REST 계약) |
+| 지금 | 다음 | 옆전 |
+|------|------|------|
+| **`06_CONSULTANT_CRUD_MISSION.md`** (설계사 CRUD) | `07_REST_CONTRACT_MISSION.md` (REST 계약) | `CRUD_WORD_BOOK.md` (코드 단어) · `SQL_BASICS.md` (쿼리) |
 
 ---
 
@@ -21,6 +21,8 @@
 | `05_CUSTOMER_CRUD_MANUAL.md` | 2번째 CRUD. 고객. 따라 하기 | **끝 · 참고만** |
 | `06_CONSULTANT_CRUD_MISSION.md` | 3번째 CRUD. 설계사. 네가 씀 | **지금** |
 | `07_REST_CONTRACT_MISSION.md` | 검증·404·검색 | 설계사 끝난 뒤 |
+| `CRUD_WORD_BOOK.md` | 상품·고객·설계사 코드에 나온 이름 사전 + 흐름 그림 | **참고**. 미션 아님 |
+| `SQL_BASICS.md` | SQL 기본. DDL · DML · JOIN · 집계 · 제약 · 트랜잭션 | **참고**. 미션 아님 |
 
 인증·주문 문서는 아직 없다. 개요만 `02_ROADMAP.md` 2·3단계에 있다.
 
@@ -36,6 +38,8 @@
         → 로그인 (로드맵 2단계)
           → 주문 (로드맵 3단계)
 ```
+
+이름이 낯설면 `CRUD_WORD_BOOK.md` 를 연다. 쿼리가 낯설면 `SQL_BASICS.md` 를 연다. 오늘 본문은 바꾸지 않는다.
 
 ---
 

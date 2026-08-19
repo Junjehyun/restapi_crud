@@ -23,9 +23,9 @@ import lombok.RequiredArgsConstructor;
  * 
  * ConsultantService
  */
-@Service
+@Service // 서비스는 요리사다. 이건 요리사 명찰을 의미함.
 @RequiredArgsConstructor
-@Transactional
+@Transactional // 메서드 안의 데이터베이스의 일을 한 묶음으로 본다. 중간에 예외가 나면 롤백.
 public class ConsultantService {
 
     // 레파지토리 주입

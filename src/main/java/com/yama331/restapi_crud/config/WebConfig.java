@@ -8,14 +8,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * CORS 설정 클래스
  *
  * [CORS란?]
- * - 브라우저가 다른 출처(Origin)의 요청을 차단하는 보안 정책을 풀어주는 설정입니다.
+ * - 브라우저가 다른 출처(Origin)의 요청을 차단하는 보안 정책을 풀어주는 설정이다.
  * - 프론트엔드(localhost:5173)와 백엔드(localhost:8080)는 포트가 다르기 때문에
- *   브라우저 입장에서는 "다른 출처"로 인식됩니다.
- * - 이 설정을 하지 않으면 React에서 API를 호출할 때 CORS 에러가 발생합니다.
+ *   브라우저 입장에서는 "다른 출처"로 인식된다.
+ * - 이 설정을 하지 않으면 React에서 API를 호출할 때 CORS 에러가 발생한다.
  */
 @Configuration // Spring 설정 클래스임을 선언
 public class WebConfig implements WebMvcConfigurer {
-    
+    // WebMvcConfigurer -> 스프링 웹 설정에 끼어들 수 있는 인터페이스, CORS를 열려면 이 약속을 구현한다.
     /**
      * CORS 매핑 설정
      *
